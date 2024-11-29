@@ -1,5 +1,7 @@
 This is a local copy of https://github.com/lhncbc/formbuilder-lhcforms to work with UK terminology
 
+- `ng build --configuration production --output-path prod --base-href /formbuilder-lhcforms/`
+
 ### Installation 
 1. Install **nodejs** package globally on your system.
 
