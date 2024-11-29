@@ -50,24 +50,10 @@ export class FhirService {
   fhirServerList: FHIRServer[] = [
     {
       id: 4,
-      displayName: 'NLM HAPI FHIR Server - R4',
-      endpoint: 'https://lforms-fhir.nlm.nih.gov/baseR4',
-      desc: 'NLM Test Server (R4 Resources)',
+      displayName: 'Demo FHIR Server - R4',
+      endpoint: 'https://3cdzg7kbj4.execute-api.eu-west-2.amazonaws.com/poc/events/FHIR/R4/',
+      desc: 'Demo Server (R4 Resources)',
       version: 'R4'
-    },
-    {
-      id: 3,
-      displayName: 'UHN HAPI Server - R4',
-      endpoint: 'https://hapi.fhir.org/baseR4',
-      desc: 'UHN Test Server (R4 Resources)',
-      version: 'R4'
-    },
-    {
-      id: 2,
-      displayName: 'UHN HAPI Server - STU3',
-      endpoint: 'https://hapi.fhir.org/baseDstu3',
-      desc: 'UHN Test Server (STU3 Resources)',
-      version: 'STU3'
     }
   ];
 

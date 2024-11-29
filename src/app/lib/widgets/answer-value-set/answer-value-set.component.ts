@@ -8,6 +8,7 @@ import {TerminologyServerComponent} from '../terminology-server/terminology-serv
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import {NgbTooltip} from '@ng-bootstrap/ng-bootstrap';
 import {Util} from '../../util';
+import {environment} from "../../../../environments/environment";
 
 @Component({
   selector: 'lfb-answer-value-set',
@@ -18,10 +19,10 @@ import {Util} from '../../util';
 export class AnswerValueSetComponent extends StringComponent implements OnInit, AfterViewInit, OnDestroy {
 
   static snomedBaseUri = 'http://snomed.info/sct';
-  static snomedTerminologyServer = 'https://snowstorm.ihtsdotools.org/fhir';
+  static snomedTerminologyServer = environment.snomedTerminologyServer
   static snomedTSHint = 'Note that this option also sets the terminology server option below (under "Advanced fields").';
   static nonSnomedTSHint = 'Make sure that you provide a valid URL for a supporting terminology server below (under Advanced fields).';
-  
+
   eclHelpContent = `See the <a class="lfb-ngb-tooltip-link" target="_blank" (click)="eclTooltipClose($event)" ` +
                    `href="https://confluence.ihtsdotools.org/display/DOCECL">ECL documentation</a> for more information, or ` +
                    `try the ECL Builder in the <a class="lfb-ngb-tooltip-link" target="_blank" (click)="eclTooltipClose($event)" ` +
@@ -112,7 +113,7 @@ export class AnswerValueSetComponent extends StringComponent implements OnInit, 
     this.url.pathname += this.snomedVersion ? '/version/' + this.snomedVersion : '';
     // this.snomedFhirVS = args.ecl;
     if(this.snomedFhirVS && this.snomedEdition) {
-      const ecl = this.eclPrefixRE.test(this.snomedFhirVS) ? this.snomedFhirVS : 'ecl/' + this.snomedFhirVS;
+      const ecl = this.eclPrefixRE.test(this.snomedFhirVS) ? this.snomedFhirVS : 'ecl/' + this.snomedFhirVS.replace(' ','');
       this.url.searchParams.set('fhir_vs', ecl);
       snomedUrl = this.url.toString();
     }
@@ -135,12 +136,12 @@ export class AnswerValueSetComponent extends StringComponent implements OnInit, 
    */
   setSNOMEDTerminologyServer(isAdd: boolean) {
     if(isAdd) {
-      if(!this.extensionService.getFirstExtensionByUrl(TerminologyServerComponent.PREFERRED_TERMINOLOGY_SERVER_URI)) {
+     /* if(!this.extensionService.getFirstExtensionByUrl(TerminologyServerComponent.PREFERRED_TERMINOLOGY_SERVER_URI)) {
         this.extensionService.addExtension({
           url: TerminologyServerComponent.PREFERRED_TERMINOLOGY_SERVER_URI,
           valueUrl: AnswerValueSetComponent.snomedTerminologyServer
         }, 'valueUrl')
-      }
+      }*/
     } else {
       this.extensionService.removeExtension((ext) => {
         return ext.value.url === TerminologyServerComponent.PREFERRED_TERMINOLOGY_SERVER_URI
@@ -233,6 +234,6 @@ export class AnswerValueSetComponent extends StringComponent implements OnInit, 
    * @returns - string with the anchor tags removed.
    */
   getURLFreeAriaLabel(input: string): string {
-    return Util.removeAnchorTagFromString(input, 'Link:', 'before'); 
+    return Util.removeAnchorTagFromString(input, 'Link:', 'before');
   }
 }
